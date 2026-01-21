@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="lt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Porcijų skaičiuoklė</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="./script.js" defer></script>
+  </head>
+
+  <body>
+    <button id="recipeBtn" type="button">Pasirinkite receptą:</button>
+
+    <!-- Kortelės -->
+    <div class="cards">
+      <div class="card" data-recipe="vistienaSuSalotomis">
+        <h3>Vištiena su salotom</h3>
+        <button class="pasirinkimas" data-id="1">Vištiena su salotomis.</button>
+      </div>
+
+      <div class="card" data-recipe="tortasSuMelynemis">
+        <h3>Tortas su mėlynėmis</h3>
+        <button class="pasirinkimas" data-id="2">Tortas su mėlynemis</button>
+      </div>
+
+      <div class="card" data-recipe="makaronaiSuMesa">
+        <h3>Makaronai su mėsa</h3>
+        <button class="pasirinkimas" data-id="3">Makaronai su mėsa</button>
+      </div>
+    </div>
+
+    <!-- Porcijos -->
+    <div class="box">
+      <h2>Kiek porcijų gaminsite?</h2>
+      <input type="range" min="1" max="10" id="portionRange" value="1" />
+      <p>Porcijų skaičius: <strong id="portionValue">1</strong></p>
+    </div>
+
+    <!-- Ingredientai -->
+    <div id="recipe">
+      <!-- <h2 id="recipeTitle">Pasirink receptą</h2> -->
+      <p>
+        Jums reikės šių ingredientų, tokiais kiekiais:<strong id="portionValue"
+          >1</strong
+        >
+      </p>
+      <ul id="ingredientList"></ul>
+    </div>
+  </body>
+</html>

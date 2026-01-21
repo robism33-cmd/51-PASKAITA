@@ -1,0 +1,22 @@
+body {
+  margin: 0, auto;
+  padding: 10px;
+}
+#container1,
+#container2,
+#container3 {
+  /* max-width: 1200px; */
+  display: grid;
+  grid-column: auto;
+  gap: 20px;
+  align-items: center;
+}
+#recipeBtn {
+  margin-bottom: 10px;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+}
+#recipeBtn :hover {
+  background-color: red;
+}

@@ -1,0 +1,28 @@
+const portionRange = document.getElementById("portionRange");
+const portionValue = document.getElementById("portionValue");
+
+const pyragas = {
+  miltai: 500,
+  kiausiniu: 2,
+  vandens: 1000,
+};
+
+portionRange.addEventListener("input", () => {
+  portionValue.textContent = `Jums reikes ${pyragas.miltai * portionRange.value} ${pyragas.kiausiniu * portionRange.value}`;
+});
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <div class="box">
+      <h2>Kiek porciju gaminsite?</h2>
+      <input type="range" min="1" max="10" id="portionRange" value="1" />
+      <p>Porciju skaicius <strong id="portionValue">1</strong></p>
+    </div>
+  </body>
+</html>
