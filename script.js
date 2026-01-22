@@ -1,0 +1,150 @@
+const cardsContainer = document.getElementById("cards");
+const portionRange = document.getElementById("portionRange");
+const portionValue = document.getElementById("portionValue");
+const ingredientList = document.getElementById("ingredientList");
+const recipeTitle = document.getElementById("recipeTitle");
+
+const patiekalai = [
+  {
+    id: 1,
+    pavadinimas: "Vištiena su Salotomis",
+    kortele: {
+      img: "https://receptai.patarimupasaulis.lt/images/Salotos/salotos-su-vistiena-3.webp",
+      alt: "Vištiena su salotomis",
+      title: "Vištiena su Salotomis",
+      description: "Geras vištienos patiekalas su salotomis",
+    },
+    Ingradientai: {
+      VistosFile: 1,
+      kiausinis: 1,
+      Miltai: 30,
+      dziuvesiai: 30,
+      salotos: 2,
+      Vysniniaipomidorai: 6,
+      Trumpavaisisagurkas: 1,
+      Paprika: 0.5,
+      Citrina: 0.5,
+      Prieskoniaisalotoms: 2,
+      ExtraVirginalyvuogiualiejus: 1,
+    },
+  },
+  {
+    id: 2,
+    pavadinimas: "Tortas su mėlynėmis",
+    kortele: {
+      img: "https://iq.alfa.lt/photo/000000349/499/MAIN_00_INITh.webp",
+      alt: "Tortas su mėlynėmis",
+      title: "Tortas su mėlynėmis",
+      description: "Skanus tortas su mėlynėmis",
+    },
+    Ingradientai: {
+      baltasSokoladas: 160,
+      kokosoAliejus: 16,
+      dziuvesiaiRiekelemis: 90,
+      maskaponeSuris: 500,
+      melynes: 450,
+      cukrus: 80,
+      zalatina: 15,
+      vandens: 100,
+    },
+  },
+  {
+    id: 3,
+    pavadinimas: "Makaronai su mėsa",
+    kortele: {
+      img: "https://s1.15min.lt/images/photos/2012/11/13/big/makaronai-su-mesa-50a22820a92c6.jpg",
+      alt: "Makaronai su mėsa",
+      title: "Makaronai su mėsa",
+      description: "Sotus patiekalas su mėsa",
+    },
+    Ingradientai: {
+      versiena: 400,
+      fetoSuris: 100,
+      kiausiniai: 1,
+      makaronai: 500,
+      druska: 1,
+      metos: 2,
+    },
+  },
+];
+
+// aktyvus patiekalas (pradžioje — pirmas)
+let aktyvusPatiekalas = patiekalai[0];
+
+// -------- KORTELIŲ RENDER --------
+function renderCards() {
+  cardsContainer.innerHTML = "";
+
+  patiekalai.forEach((p) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.id = String(p.id);
+
+    card.innerHTML = `
+      <div class="check">✔</div>
+      <img src="${p.kortele.img}" alt="${p.kortele.alt}">
+      <div class="card-content">
+        <h3>${p.pavadinimas}</h3>
+        <p>${p.kortele.description}</p>
+      </div>
+    `;
+
+    card.addEventListener("click", () => {
+      setActiveRecipe(p.id);
+    });
+
+    cardsContainer.appendChild(card);
+  });
+
+  markActiveCard();
+}
+
+function markActiveCard() {
+  document.querySelectorAll(".card").forEach((c) => {
+    const id = Number(c.dataset.id);
+    c.classList.toggle("active", id === aktyvusPatiekalas.id);
+  });
+}
+
+// -------- AKTYVAUS PATIEKALO NUSTATYMAS --------
+function setActiveRecipe(id) {
+  const rastas = patiekalai.find((p) => p.id === id);
+  if (!rastas) return;
+
+  aktyvusPatiekalas = rastas;
+
+  markActiveCard();
+  renderIngredients(Number(portionRange.value));
+}
+
+// -------- INGREDIENTŲ RENDER --------
+function renderIngredients(porcijos) {
+  ingredientList.innerHTML = "";
+  recipeTitle.textContent = aktyvusPatiekalas.pavadinimas;
+
+  // SVARBIAUSIA: čia Ingradientai, ne ingredientai
+  const ingr = aktyvusPatiekalas.Ingradientai;
+
+  if (!ingr) {
+    ingredientList.innerHTML = "<li>Šiam patiekalui nėra ingredientų.</li>";
+    return;
+  }
+
+  Object.entries(ingr).forEach(([name, amount]) => {
+    const li = document.createElement("li");
+    li.textContent = `${name}: ${amount * porcijos}`;
+    ingredientList.appendChild(li);
+  });
+}
+
+// -------- PORCIJŲ KEITIMAS --------
+portionRange.addEventListener("input", () => {
+  const porcijos = Number(portionRange.value);
+  portionValue.textContent = String(porcijos);
+  renderIngredients(porcijos);
+});
+
+// -------- START --------
+portionValue.textContent = portionRange.value;
+renderCards();
+renderIngredients(Number(portionRange.value));

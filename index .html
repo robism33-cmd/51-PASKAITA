@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="lt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Porcijų skaičiuoklė</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <h1>Porcijų skaičiuoklė</h1>
+
+    <!-- VISOS KORTELĖS VIENAME DIVE -->
+    <div class="cards" id="cards"></div>
+
+    <!-- PORCIJOS -->
+    <div class="box">
+      <h2>Kiek porcijų gaminsite?</h2>
+      <input type="range" min="1" max="10" id="portionRange" value="1" />
+      <p>Porcijų skaičius: <strong id="portionValue">1</strong></p>
+    </div>
+
+    <!-- INGREDIENTAI -->
+    <div class="recipe">
+      <h2 id="recipeTitle">Pasirinkite patiekalą</h2>
+      <p>Ingredientai pagal porcijų skaičių:</p>
+      <ul id="ingredientList"></ul>
+    </div>
+  </body>
+</html>
